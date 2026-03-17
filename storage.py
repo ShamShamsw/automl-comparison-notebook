@@ -81,6 +81,10 @@ def train_val_test_split(
     Returns:
         Tuple of (X_train, X_val, X_test, y_train, y_val, y_test).
     """
+    # relative_test is the fraction of the *remaining* data (after val split) to
+    # reserve for the test set.  For example, with val_size=0.2 and test_size=0.2:
+    #   relative_test = 0.2 / (1 - 0.2) = 0.25
+    # so the second split takes 25% of the 80% remainder → 20% of the full dataset.
     relative_test = test_size / (1.0 - val_size)
     X_temp, X_val, y_temp, y_val = train_test_split(
         X, y, test_size=val_size, random_state=random_state

@@ -113,13 +113,15 @@ def run_grid_search(
     if verbose:
         print(f"\r   [{'█'*10}] 100% - Training complete.          ")
 
-    # Sort by validation accuracy to find the best model.
+    # ranked_results is ordered by test accuracy for the comparison table display.
+    # best_result is chosen by validation accuracy — using the held-out test set
+    # to select a model would constitute data leakage.
     ranked = sorted(all_results, key=lambda r: r["test_metrics"]["accuracy"], reverse=True)
-    best = max(all_results, key=lambda r: r["val_metrics"]["accuracy"])
+    best_by_val = max(all_results, key=lambda r: r["val_metrics"]["accuracy"])
 
     return {
         "all_results": all_results,
-        "best_result": best,
+        "best_result": best_by_val,
         "ranked_results": ranked,
     }
 

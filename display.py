@@ -158,7 +158,11 @@ def format_metrics_report(result: dict[str, Any]) -> str:
         f"   Algorithm: {name}",
         f"   Best hyperparameters: {hp}",
     ]
-    for split_label, key in [("Training", "train_metrics"), ("Validation", "val_metrics"), ("Test (final)", "test_metrics")]:
+    for split_label, key in [
+        ("Training", "train_metrics"),
+        ("Validation", "val_metrics"),
+        ("Test (final)", "test_metrics"),
+    ]:
         m = result[key]
         lines.append(f"\n   {split_label} metrics:")
         lines.append(f"      Accuracy:  {m['accuracy']:.3f}")
